@@ -2,7 +2,7 @@ import heapq
 import sys
 input =  sys.stdin.readline
 
-# 최소힙
+# 최소힙 : 부모 노드는 자식 노드보다 크지만 않으면 됨 + 완전이진트리
 # 1. 배열에 자연수 x를 넣는다.
 # 2. 배열에서 가장 작은 값을 출력하고, 그 값을 배열에서 제거한다.
 n = int(input())
