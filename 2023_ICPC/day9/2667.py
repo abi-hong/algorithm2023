@@ -1,45 +1,40 @@
-import sys
-
-n = int(sys.stdin.readline())
-matrix = [[0] * n for _ in range(n)]
-visited = [[0] * n for _ in range(n)]
+n = int(input())
+graph = []
+num = []
+count = 0 # 단지 내 집의 수
+result = 0 # 단지 개수
 
 for i in range(n):
-    line = sys.stdin.readline().strip()
-    # enumerate() 함수는 기본적으로 인덱스와 원소로 이루어진 tuple을 만들어줌
-    # j -> 인덱스 번호, k -> 값 
-    for j, k in enumerate(line):
-        matrix[i][j] = int(k)
+    graph.append(list(map(int, input())))
+# or graph = [list(map(int, input())) for _ in range(n)]
 
 dx = [-1, 1, 0, 0]
 dy = [0, 0, 1, -1]
 
-def dfs(x, y, c):
-    visited[x][y] = 1 # 방문표시
-    global number # 아파트 단지 수
-    if matrix[x][y] == 1:
-        number += 1
-    
-    # 이 위치에서 상단좌우 살핀 후, 좌표를 확인해서 dfs 적용
-    for i in range(4):
-        nx = x + dx[i]
-        ny = y + dy[i]
-        if 0 <= nx < n and 0 <= ny < n:
-            if visited[nx][ny] == 0 and matrix[nx][ny] == 1:
-                dfs(nx, ny, c)
+def dfs(x, y):
+    if (x < 0 or x >= n or y < 0 or y >= n):
+        return False
+    if graph[x][y] == 1: # 집이 있다.
+        global count
+        count += 1
+        graph[x][y] = 0 # 다시 방문하지 않도록
+        for i in range(4):
+            # (x-1, y), (x+1, y), (x, y+1) ,(x, y-1)
+            nx = x + dx[i]
+            ny = y + dy[i]
+            dfs(nx, ny)
+        return True
+    return False
 
-# 아파트 단지를 세기 위한 변수
-count = 1
-numberlist = []
-number = 0
+for i in range(n):
+    for j in range(n):
+        if dfs(i, j) == True:
+            #print('i', i, 'j', j)
+            num.append(count)
+            result += 1
+            count = 0
 
-for a in range(n):
-    for b in range(n):
-        if matrix[a][b] == 1 and visited[a][b] == 0:
-            dfs(a, b, count)
-            numberlist.append(number)
-            number = 0
-
-print(len(numberlist))
-for n in sorted(numberlist):
-    print(n)
+num.sort()
+print(result)
+for i in range(len(num)):
+    print(num[i])
