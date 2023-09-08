@@ -7,6 +7,7 @@ q = deque()
 q.append((a,1))
 
 # top-down으로 생각해야함 -> b를 a로
+'''
 while (b != a):
   result += 1
   temp = b
@@ -20,12 +21,13 @@ while (b != a):
     break
 else:
   print(result + 1)
+'''
 
 # bfs -> bottom-up
 # pop한 원소가 b와 같다면, 멈춘 뒤 연산 횟수 출력
-'''
 while q:
   n, t = q.popleft()
+  # print('n', n, 't', t)
   if n > b:
     continue
   if n == b:
@@ -33,7 +35,5 @@ while q:
     break
   q.append((int(str(n) + "1"), t + 1))
   q.append((n * 2, t + 1))
-  x = q.popleft()
 else:
   print(-1)
-'''
