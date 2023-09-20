@@ -5,7 +5,6 @@ N, L = map(int,input().split())
 num = list(map(int, input().split()))
 
 temp = deque([]) # 최솟값을 구할 곳
-print('temp', temp)
 
 for i in range(N):
   ## 슬라이딩 윈도우 범위를 벗어나는 원소 삭제(당연히 맨 앞의 원소)
